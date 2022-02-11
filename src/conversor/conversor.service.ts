@@ -8,8 +8,8 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 var pdf = require('html-pdf');
 const HTMLtoDOCX = require('html-to-docx');
-
-
+const html2pptxgenjs = require('html2pptxgenjs');
+const pptxgen = require('pptxgenjs');
 
 @Injectable()
 export class ConversorService { 
@@ -54,14 +54,14 @@ export class ConversorService {
     const stream = await conversion(conteudo);
     stream.pipe(
       fs.createWriteStream(
-        '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/output.xlsx',
+        '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.xlsx',
       ),
     );
   }
   async exportPdf(){
     console.time()
     
-    var html = fs.readFileSync('temp/out.html', 'utf8');
+    var html = fs.readFileSync('temp/ex.html', 'utf8');
     var options = { 
       format: 'Letter',
       height: ' 297mm',        // allowed units: mm, cm, in, px
@@ -83,9 +83,21 @@ export class ConversorService {
 
   }
   
-  async exportDocx(){    
+  async exportDocx(){  
+    console.time()
+  
     const filePath = '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.docx';
-    const htmlString = ``;
+    const htmlString = `<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <title>Document</title>
+        </head>
+        <body>
+            <table name='TESTEEEEE' class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t'>Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table><table class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t'>Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table><table class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t'>Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table>
+    
+        </body>
+    </html>`;
   
     (async () => {
       const fileBuffer = await HTMLtoDOCX(htmlString, null, {
@@ -104,7 +116,40 @@ export class ConversorService {
       });
     })();
  
+    console.timeEnd()
 
   }
   
+  async exportPptx(){  
+    const Slides = [`<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <title>Document</title>
+        </head>
+        <body>
+            <table name='TESTEEEEE' class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t' >Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table><table class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t'>Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table><table class='table'> <tbody> <tr> <td></td> <td></td> <td class='celula-negrito text-center' colspan='4'> </td> </tr> <tr> <td></td> <td></td> <td class='celula-borda-b celula-negrito celula-borda-t'>Contas a Receber </td> <td class='celula-borda-b celula-negrito celula-borda-t'>Dividendos do exercício anterior</td> <td class='celula-borda-b celula-negrito celula-borda-t'>( - ) Despesas de Propaganda</td></tr> <tr> <td class='celula-negrito' style='background-color:red'> Solde au 31 de Janeiro de 2021 </td> <td></td><td class='celula-negrito'>(86,981)</td><td class='celula-negrito'>-</td><td class='celula-negrito'>(2,961)</td></tr> <tr> <td class='cell-filho'> 123123123 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 423423423 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> 34534534534 </td> <td></td> <td>-</td><td>-</td><td>-</td> </tr><tr> <td class='cell-filho'> Movimentações </td> <td></td> <td>86,981</td><td>-</td><td>2,961</td></tr> <tr class='line-father-total'> <td class='celula-borda-b celula-negrito'> Solde au 31 de Janeiro de 2022 </td> <td></td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td><td class='celula-negrito celula-borda-t'>-</td></tr> </tbody> </table>
+    
+        </body>
+    </html>`];
+  const options = {
+  };  
+  
+  // Create a sample presentation
+  const pres = new pptxgen();
+  
+  Slides.forEach(text => {
+      const slide = pres.addSlide();
+  
+      const items = html2pptxgenjs.htmlToPptxText(text, options);
+  
+      slide.addText(items, { x: 0.5, y: 0, w: 9.5, h: 6, valign: 'top' });
+  
+      return items;
+  });
+  
+  pres.writeFile('/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.pptx');
+
+
+  }
 }

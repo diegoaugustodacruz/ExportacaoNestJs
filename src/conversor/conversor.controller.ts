@@ -18,4 +18,9 @@ export class ConversorController {
   exportDocx() {
     this.service.exportDocx();
   }
+
+  @Get('htmlToPptx')
+  exportPptx() {
+    this.service.exportPptx();
+  }
 }
