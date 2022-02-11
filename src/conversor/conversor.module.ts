@@ -4,6 +4,6 @@ import { ConversorService } from './conversor.service';
 
 @Module({
   controllers: [ConversorController],
-  providers: [ConversorService]
+  providers: [ConversorService],
 })
 export class ConversorModule {}
