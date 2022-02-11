@@ -60,9 +60,20 @@ export class ConversorService {
   async exportPdf(){
     console.time()
     
-    var html = fs.readFileSync('/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.html', 'utf8');
-    var options = { format: 'Letter' };
-    pdf.create(html, options).toFile('/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.pdf', function(err, res) {
+    var html = fs.readFileSync('temp/out.html', 'utf8');
+    var options = { 
+      format: 'Letter',
+      height: ' 297mm',        // allowed units: mm, cm, in, px
+      width: '210mm',            // allowed units: mm, cm, in, px
+      orientation: 'portrait', // portrait or landscape
+      border: {
+        top: '15px',            // default is 0, units: mm, cm, in, px
+        right: '15px',
+        bottom: '15px',
+        left: '15px'
+      },
+   };
+    pdf.create(html, options).toFile('temp/ex.pdf', function(err, res) {
       if (err) return console.log(err);
       console.log(res); // { filename: '/app/businesscard.pdf' }
     
