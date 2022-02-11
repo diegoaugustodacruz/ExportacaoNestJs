@@ -14,4 +14,8 @@ export class ConversorController {
     this.service.exportPdf();
   }
 
+  @Get('htmlToDocx')
+  exportDocx() {
+    this.service.exportDocx();
+  }
 }

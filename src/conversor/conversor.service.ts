@@ -7,6 +7,7 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 const path = require('path');
 var pdf = require('html-pdf');
+const HTMLtoDOCX = require('html-to-docx');
 
 
 
@@ -70,6 +71,29 @@ export class ConversorService {
     console.timeEnd()
 
   }
+  
+  async exportDocx(){    
+    const filePath = '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.docx';
+    const htmlString = ``;
+  
+    (async () => {
+      const fileBuffer = await HTMLtoDOCX(htmlString, null, {
+        table: { row: { cantSplit: true } },
+        header: false,
+        footer: false,
+        pageNumber: false,
+      });
+    
+      fs.writeFile(filePath, fileBuffer, (error) => {
+        if (error) {
+          console.log('Docx file creation failed');
+          return;
+        }
+        console.log('Docx file created successfully');
+      });
+    })();
+ 
 
+  }
   
 }
