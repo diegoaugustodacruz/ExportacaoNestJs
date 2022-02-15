@@ -1,0 +1,13 @@
+----------Relatório Exportação XLSX - Node----------
+
+---Pendências Front---
+
+-Inserção de duas linhas no HTML em cada tabela. Primeira linha: Nome do grupo. Segunda linha: Nome da tabela
+
+-Inserção do nome da tabela na terceira linha (abaixo dos meses)
+
+-Refatoração das tabelas para uma melhor estrutura, principalmente DMPL (Última linha tem um elemento <tr></tr> vazio) . Atualmente existem elementos spans, que a lib de exportação não lê corretamente.
+
+-Refatoração das tabelas para retirar colunas vazias
+
+-CSS Inline no HTML
