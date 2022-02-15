@@ -13,10 +13,12 @@ const pptxgen = require('pptxgenjs');
 
 @Injectable()
 export class ConversorService {
-  async exportXlsx(conteudo: string) {
+  async exportXlsx() {
+    console.time();
     const chromePageEval = require('chrome-page-eval');
     const writeFileAsync = util.promisify(fs.writeFile);
     const chromeEval = chromePageEval({ puppeteer });
+    
 
     const conversion = conversionFactory({
       extract: async ({ html, ...restOptions }) => {
@@ -34,8 +36,6 @@ export class ConversorService {
           scriptFn: conversionFactory.getScriptFn(),
         });
 
-        console.log(result);
-
         const tables = Array.isArray(result) ? result : [result];
 
         return tables.map((table) => ({
@@ -49,13 +49,17 @@ export class ConversorService {
         }));
       },
     });
+        
+    const html = fs.readFileSync('temp/ex.html', 'utf8');
 
-    const stream = await conversion(conteudo);
+    const stream = await conversion(html);
     stream.pipe(
       fs.createWriteStream(
         '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.xlsx',
       ),
     );
+    console.timeEnd();
+
   }
   async exportPdf() {
     console.time();

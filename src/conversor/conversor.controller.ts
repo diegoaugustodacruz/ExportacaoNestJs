@@ -5,8 +5,8 @@ import { ConversorService } from './conversor.service';
 export class ConversorController {
   constructor(private service: ConversorService) {}
   @Get('htmlToXlsx')
-  exportXlsx(@Body('conteudo') conteudo: string) {
-    this.service.exportXlsx(conteudo);
+  exportXlsx() {
+    this.service.exportXlsx();
   }
 
   @Get('htmlToPdf')
