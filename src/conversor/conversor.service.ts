@@ -59,8 +59,14 @@ export class ConversorService {
           
           // linha 3
           tables[i].rows[2][0].height= 20
-          tables[i].rows[2][0].colspan = 20          
-
+          tables[i].rows[2][0].colspan = 20
+          
+          for (let linha = 3; linha < tables[i].rows.length; linha++) {
+            for (let coluna = 0; coluna < tables[i].rows[linha].length; coluna++) {
+              tables[i].rows[linha][coluna].fontFamily = "Calibri"
+              tables[i].rows[linha][coluna].fontSize = "13.4px"
+            }
+          }
         }       
 
         return tables.map((table) => ({
