@@ -55,7 +55,7 @@ export class ConversorService {
     const stream = await conversion(html);
     stream.pipe(
       fs.createWriteStream(
-        '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.xlsx',
+        'temp/ex.xlsx',
       ),
     );
     console.timeEnd();
