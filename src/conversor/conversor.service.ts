@@ -11,7 +11,7 @@ const HTMLtoDOCX = require('html-to-docx');
 const html2pptxgenjs = require('html2pptxgenjs');
 const pptxgen = require('pptxgenjs');
 
-const pathAbs = '/home/accountfy/projetos/ExportacaoNestJs/temp/'
+const pathAbs = '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp'
 
 @Injectable()
 export class ConversorService {
@@ -40,26 +40,28 @@ export class ConversorService {
 
         const tables = Array.isArray(result) ? result : [result];
 
-        // linha 1
-        tables[0].rows[0][0].fontFamily = "Calibri"
-        tables[0].rows[0][0].fontSize = "15px"
-        tables[0].rows[0][0].horizontalAlign = "left"
-        tables[0].rows[0][0].wrapText = "invisible"
-        tables[0].rows[0][0].colspan = 20
+        for (let i = 0; i < tables.length; i++) {
+          
+          // linha 1
+          tables[i].rows[0][0].fontFamily = "Calibri"
+          tables[i].rows[0][0].fontSize = "15px"
+          tables[i].rows[0][0].horizontalAlign = "left"
+          tables[i].rows[0][0].wrapText = "invisible"
+          tables[i].rows[0][0].colspan = 20
+  
+          // linha 2
+          tables[i].rows[1][0].fontFamily = "Calibri"
+          tables[i].rows[1][0].fontSize = "20px"  // 15px
+          //tables[0].rows[1][0].horizontalAlign = "right"
+          tables[i].rows[1][0].foregroundColor = ['69','221', '152']
+          tables[i].rows[1][0].fontWeight = "bold"
+          tables[i].rows[1][0].colspan = 20
+          
+          // linha 3
+          tables[i].rows[2][0].height= 20
+          tables[i].rows[2][0].colspan = 20          
 
-        // linha 2
-        tables[0].rows[1][0].fontFamily = "Calibri"
-        tables[0].rows[1][0].fontSize = "20px"  // 15px
-        //tables[0].rows[1][0].horizontalAlign = "right"
-        tables[0].rows[1][0].foregroundColor = ['69','221', '152']
-        tables[0].rows[1][0].fontWeight = "bold"
-        tables[0].rows[1][0].colspan = 20
-        
-        // linha 3
-        tables[0].rows[2][0].height= 20
-        tables[0].rows[2][0].colspan = 20
-       
-        
+        }       
 
         return tables.map((table) => ({
           name: table.name,
