@@ -73,14 +73,36 @@ export class ConversorService {
             }            
 
             //Delecao de linhas
+            
             let cond = tables[i].rows[linha].every(cel => cel.valueText == '')            
             if(cond){
               delete tables[i].rows[linha]
             }
             
-            //Delecao de colunas
             
-          }          
+          }
+          tables[i].rows = tables[i].rows.filter(linha => typeof(linha) == 'object')        
+          
+          
+          //Delecao de colunas
+          for (let coluna = 0; coluna < tables[i].rows[3].length; coluna++) {
+
+            let valor = false
+            for (let linha = 3; linha < tables[i].rows.length && valor===false; linha++) {
+              if(tables[i].rows[linha][coluna].valueText != ''){
+                valor = true
+              }
+            }
+            
+            if(valor == false){
+              for(let linha = 3; linha < tables[i].rows.length; linha++){
+                delete tables[i].rows[linha][coluna]
+
+                tables[i].rows[linha] = tables[i].rows[linha].filter(cel => typeof(cel) == 'object')        
+              }
+            }
+          }
+
           console.log(tables[0])
           
         }
