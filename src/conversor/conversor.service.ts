@@ -20,7 +20,7 @@ export class ConversorService {
     const chromePageEval = require('chrome-page-eval');
     const writeFileAsync = util.promisify(fs.writeFile);
     const chromeEval = chromePageEval({ puppeteer });
-    
+
 
     const conversion = conversionFactory({
       extract: async ({ html, ...restOptions }) => {
@@ -41,33 +41,51 @@ export class ConversorService {
         const tables = Array.isArray(result) ? result : [result];
 
         for (let i = 0; i < tables.length; i++) {
-          
+
           // linha 1
           tables[i].rows[0][0].fontFamily = "Calibri"
           tables[i].rows[0][0].fontSize = "15px"
           tables[i].rows[0][0].horizontalAlign = "left"
           tables[i].rows[0][0].wrapText = "invisible"
           tables[i].rows[0][0].colspan = 20
-  
+
           // linha 2
           tables[i].rows[1][0].fontFamily = "Calibri"
           tables[i].rows[1][0].fontSize = "20px"  // 15px
           //tables[0].rows[1][0].horizontalAlign = "right"
-          tables[i].rows[1][0].foregroundColor = ['69','221', '152']
+          tables[i].rows[1][0].foregroundColor = ['69', '221', '152']
           tables[i].rows[1][0].fontWeight = "bold"
           tables[i].rows[1][0].colspan = 20
-          
+
           // linha 3
-          tables[i].rows[2][0].height= 20
+          tables[i].rows[2][0].height = 20
           tables[i].rows[2][0].colspan = 20
-          
+
+          //console.log(tables[0].rows[4][0])
+
+          //Formatacao Geral Tabela
           for (let linha = 3; linha < tables[i].rows.length; linha++) {
+
             for (let coluna = 0; coluna < tables[i].rows[linha].length; coluna++) {
               tables[i].rows[linha][coluna].fontFamily = "Calibri"
-              tables[i].rows[linha][coluna].fontSize = "13.4px"
+              tables[i].rows[linha][coluna].fontSize = "13.4px"             
+              
+            }            
+
+            //Delecao de linhas
+            let cond = tables[i].rows[linha].every(cel => cel.valueText == '')            
+            if(cond){
+              delete tables[i].rows[linha]
             }
-          }
-        }       
+            
+            //Delecao de colunas
+            
+          }          
+          console.log(tables[0])
+          
+        }
+
+
 
         return tables.map((table) => ({
           name: table.name,
@@ -80,7 +98,7 @@ export class ConversorService {
         }));
       },
     });
-        
+
     const html = fs.readFileSync('temp/ex.html', 'utf8');
 
     const stream = await conversion(html);
@@ -89,6 +107,8 @@ export class ConversorService {
         'temp/ex.xlsx',
       ),
     );
+
+
     console.timeEnd();
 
   }
@@ -153,7 +173,7 @@ export class ConversorService {
       }`
     };
 
-    
+
     const pres = new pptxgen();
 
     Slides.forEach(text => {
@@ -162,9 +182,9 @@ export class ConversorService {
       const items = html2pptxgenjs.htmlToPptxText(text, options);
 
       console.log(items)
-      
+
       slide.addText(items, { x: 0.5, y: 0, w: 9.5, h: 6, valign: 'top' });
-      
+
       return items;
     });
 
