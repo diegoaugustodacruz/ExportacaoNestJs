@@ -72,8 +72,7 @@ export class ConversorService {
               
             }            
 
-            //Delecao de linhas
-            
+            //Delecao de linhas            
             let cond = tables[i].rows[linha].every(cel => cel.valueText == '')            
             if(cond){
               delete tables[i].rows[linha]
