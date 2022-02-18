@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import XLSXTransformStream from 'xlsx-write-stream';
 const conversionFactory = require('html-to-xlsx');
 const util = require('util');
 const fs = require('fs');
@@ -10,6 +9,8 @@ var pdf = require('html-pdf');
 const HTMLtoDOCX = require('html-to-docx');
 const html2pptxgenjs = require('html2pptxgenjs');
 const pptxgen = require('pptxgenjs');
+import xlsx from 'node-xlsx';
+
 
 const pathAbs = '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp'
 
@@ -101,11 +102,9 @@ export class ConversorService {
               }
             }
           }
-
-          console.log(tables[0])
           
-        }
-
+        }        
+            
 
 
         return tables.map((table) => ({
@@ -116,7 +115,7 @@ export class ConversorService {
             });
           },
           rowsCount: table.rows.length,
-        }));
+        })); 
       },
     });
 
@@ -129,6 +128,7 @@ export class ConversorService {
       ),
     );
 
+    
 
     console.timeEnd();
 
