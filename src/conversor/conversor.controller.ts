@@ -13,7 +13,20 @@ export class ConversorController {
   exportXlsx() {
     this.service.exportXlsx();
   
+    var enc = new TextEncoder()
+    var data = fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`, {encoding:'utf8'})
+    // Parse a buffer
+    const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`));
+    // Parse a file
+    const workSheetsFromFile = xlsx.parse(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`);
 
+    console.log(enc.encode(data))
+    console.log(typeof(enc.encode(data)))
+
+    return enc.encode(data);
+
+    
+>>>>>>> 1ae3536c304c57873592ee1f940156d9cd3ef72d
   }
 
   @Get('htmlToPdf')
