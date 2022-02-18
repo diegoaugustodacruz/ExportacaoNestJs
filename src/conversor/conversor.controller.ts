@@ -19,7 +19,9 @@ export class ConversorController {
       { encoding: 'utf8' },
     );
 
-    const emBas64 = Buffer.from(data, 'base64');
+    const emBas64 = new Buffer(data).toString('base64');
+
+    //const emBas64 = Buffer.from(data, 'base64');
 
     //const emBas64 = new Buffer(data).toString('base64');
 
