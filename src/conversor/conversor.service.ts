@@ -1,10 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-<<<<<<< HEAD
-=======
 import xlsx from 'node-xlsx';
 import XLSXTransformStream from 'xlsx-write-stream';
->>>>>>> 1ae3536c304c57873592ee1f940156d9cd3ef72d
 const conversionFactory = require('html-to-xlsx');
 const util = require('util');
 const fs = require('fs');
@@ -14,10 +11,8 @@ var pdf = require('html-pdf');
 const HTMLtoDOCX = require('html-to-docx');
 const html2pptxgenjs = require('html2pptxgenjs');
 const pptxgen = require('pptxgenjs');
-import xlsx from 'node-xlsx';
 
-
-const pathAbs = '/home/accountfy/projetos/ExportacaoNestJs/temp/'
+const pathAbs = '/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/'
 
 @Injectable()
 export class ConversorService {
@@ -134,15 +129,6 @@ export class ConversorService {
         'temp/ex.xlsx',
       ),
     );
-
-    // var data = fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`, {encoding:'utf8'})
-    // // Parse a buffer
-    // const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`));
-    // // Parse a file
-    // const workSheetsFromFile = xlsx.parse(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`);
-
-    // console.log(data)
-    // console.log(typeof(data))
 
     console.timeEnd();
 

@@ -4,29 +4,25 @@ import { ConversorService } from './conversor.service';
 const fs = require('fs');
 import xlsx from 'node-xlsx';
 
-
 @Controller('conversor')
 export class ConversorController {
-  constructor(private service: ConversorService) { }
+  constructor(private service: ConversorService) {}
 
   @Get('htmlToXlsx')
   exportXlsx() {
     this.service.exportXlsx();
-  
-    var enc = new TextEncoder()
-    var data = fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`, {encoding:'utf8'})
-    // Parse a buffer
-    const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`));
-    // Parse a file
-    const workSheetsFromFile = xlsx.parse(`/home/accountfy/projetos/ExportacaoNestJs/temp/ex.xlsx`);
 
-    console.log(enc.encode(data))
-    console.log(typeof(enc.encode(data)))
+    const enc = new TextEncoder();
+    const data = fs.readFileSync(
+      `/home/accountfy/Documentos/Buddies/htmlXlsx/teste-tabela/temp/ex.xlsx`,
+      { encoding: 'utf8' },
+    );
 
-    return enc.encode(data);
+    const emBas64 = new Buffer(data).toString('base64');
 
-    
->>>>>>> 1ae3536c304c57873592ee1f940156d9cd3ef72d
+    console.log(emBas64);
+
+    return emBas64;
   }
 
   @Get('htmlToPdf')
