@@ -2,7 +2,8 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { readFile } from 'fs';
 import { ConversorService } from './conversor.service';
 const fs = require('fs');
-import xlsx from 'node-xlsx';
+import { Buffer } from 'buffer';
+
 
 @Controller('conversor')
 export class ConversorController {
@@ -18,7 +19,9 @@ export class ConversorController {
       { encoding: 'utf8' },
     );
 
-    const emBas64 = new Buffer(data).toString('base64');
+    const emBas64 = Buffer.from(data, 'base64');
+
+    //const emBas64 = new Buffer(data).toString('base64');
 
     console.log(emBas64);
 
